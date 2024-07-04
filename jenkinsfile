@@ -1,0 +1,44 @@
+pipeline {
+    agent any  // This pipeline can run on any available agent
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from a Git repository
+                git 'https://github.com/username/repository.git'
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                // Example: Run a Maven build
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Example: Run automated tests
+                sh 'mvn test'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Example: Deploy to a remote server or platform
+                sh 'mvn deploy'
+            }
+        }
+    }
+    
+    post {
+        success {
+            // Actions to perform if the pipeline succeeds
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            // Actions to perform if the pipeline fails
+            echo 'Pipeline failed!'
+        }
+    }
+}
